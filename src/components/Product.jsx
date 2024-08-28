@@ -7,19 +7,6 @@ import { Typography, Spinner } from "neetoui";
 import { append, isNotNil } from "ramda";
 
 import Carousel from "./Carousel";
-// import { IMAGE_URLS } from "./constants";
-
-// const Product = () => (
-//   <div className="px-6 pb-6">
-//     <div>
-//       <Typography className="py-2 text-4xl font-semibold" style="h1">
-//         Infinix INBOOK
-//       </Typography>
-//       <hr className="neeto-ui-border-black border-2" />
-//     </div>
-//     <div className="mt-6 flex gap-4">
-//       <div className="w-2/5">
-//         <Carousel imageUrls={IMAGE_URLS} title="Infinix Inbook" />
 
 const Product = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,8 +17,8 @@ const Product = () => {
       // const response = await axios.get(
       //   "https://smile-cart-backend-staging.neetodeployapp.com/products/infinix-inbook-2"
       // );
-      const response = await productsApi.show();
-      setProduct(response.data);
+      const product = await productsApi.show();
+      setProduct(product);
     } catch (error) {
       console.log("An error occurred:", error);
     } finally {
@@ -43,14 +30,7 @@ const Product = () => {
     fetchProduct();
   }, []);
 
-  const {
-    name,
-    description,
-    mrp,
-    offer_price: offerPrice,
-    image_urls: imageUrls,
-    image_url: imageUrl,
-  } = product;
+  const { name, description, mrp, offerPrice, imageUrls, imageUrl } = product;
 
   const totalDiscounts = mrp - offerPrice;
   const discountPercentage = ((totalDiscounts / mrp) * 100).toFixed(1);
